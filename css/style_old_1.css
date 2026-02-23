@@ -1,0 +1,1239 @@
+/* =========================================================
+   0) ZMIENNE (kolory, promienie, cienie)
+   ========================================================= */
+:root {
+  --bg: #0b0c10;
+  --panel: rgba(18, 20, 27, 0.80);
+
+  --text: #f5f7ff;
+  --muted: rgba(245, 247, 255, 0.75);
+  --line: rgba(245, 247, 255, 0.12);
+
+  --accent: #7c5cff;
+
+  --radius: 18px;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+
+  --header-h: 64px;
+}
+
+/* =========================================================
+   1) RESET / PODSTAWY
+   ========================================================= */
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+.muted { color: var(--muted); }
+
+main{
+  padding-bottom: calc(20svh - var(--header-h));
+}
+
+/* =========================================================
+   2) TYPOGRAFIA
+   - nagłówki bardziej "mistyczne"
+   ========================================================= */
+h1, h2, h3{
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 0.4px;
+}
+
+h1{
+  letter-spacing: 0.6px;
+  font-size: clamp(28px, 4vw, 46px);
+  margin: 0 0 12px;
+}
+
+.section h2{
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Sekcja "Co kryje się za drzwiami?" — ładniejszy rytm tekstu */
+#co-kryje-sie h2{
+  margin: 0 0 16px;
+}
+
+#co-kryje-sie {
+  text-align: center;   /* centruje h2 */
+}
+
+#co-kryje-sie .muted {
+  max-width: 720px;
+  margin: 0 auto 14px;  /* wyśrodkowany blok */
+  text-align: left;     /* ale tekst czyta się naturalnie */
+}
+
+#co-kryje-sie .muted:last-child{
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   X) WELCOME
+   ========================================================= */
+/* Pierwszy ekran: tło + napis na środku */
+.welcome{
+  min-height: calc(100svh - var(--header-h));
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+/* żeby napis był idealnie na środku i czytelny */
+.welcome-inner{
+  text-align: center;
+}
+
+.welcome-kicker{
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(32px, 5vw, 64px);
+  letter-spacing: 1px;
+  color: rgba(245,247,255,0.85);
+  text-shadow: 0 10px 30px rgba(0,0,0,.45);
+
+  opacity: 0;
+  transform: translateY(10px);
+  animation: welcomeFadeUp 1.6s ease-out forwards;
+  animation-delay: .25s;
+}
+
+@keyframes welcomeFadeUp{
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   3) HEADER / NAV
+   ========================================================= */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;  
+  width: 100%;
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  background: rgba(11, 12, 16, 0.72);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 0;
+  gap: 16px;
+}
+
+.logo { font-weight: 750; letter-spacing: 0.2px; }
+
+.logo img {
+  height: 36px;   /* zmień na 32px / 36px / 45px według gustu */
+  width: auto;
+  display: block;
+}
+
+.menu-btn {
+  display: none;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.04);
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.nav {
+  display: flex;
+  gap: 28px; /* więcej oddechu */
+}
+
+.nav a {
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+
+.nav a:hover {
+  color: #f3d38a; /* delikatne złoto */
+}
+
+
+.nav.mobile {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 0 16px;
+}
+
+.nav.mobile a {
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.nav.mobile.open { display: flex; }
+
+/* =========================================================
+   4) HERO (nagłówek + lead nad drzwiami)
+   - zmniejszone odstępy, żeby tekst był bliżej drzwi
+   ========================================================= */
+.hero { padding: 40px 0 0px; }
+
+.hero-simple { text-align: center; }
+
+.lead {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 60ch;
+  margin: 0 auto 6px;
+}
+
+/* =========================================================
+   5) SEKCJE OGÓLNE
+   - "section" to ogólna sekcja strony
+   - "section alt" to sekcja delikatnie odcięta tłem
+   ========================================================= */
+.section { padding: 1px 0 70px; }
+
+.section.alt {
+  padding: 100px 0 100px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+
+  background: rgba(12, 14, 22, 0.75);   /* ciemny półpanel */
+}
+
+
+/* =========================================================
+   6) PRZYCISKI
+   ========================================================= */
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 0 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(245,247,255,0.2); }
+.btn:active { transform: translateY(1px); }
+
+.btn.primary {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.btn.primary:hover {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.btn.ghost { background: transparent; }
+.btn.small { padding: 10px 12px; border-radius: 12px; font-size: 14px; }
+
+.tiny-note { font-size: 12px; color: var(--muted); margin: 12px 0 0; }
+
+/* =========================================================
+   7) TŁO HOME: GWIAZDY / KOSMOS
+   - obrazek gwiazd jako overlay (pseudo-element ::after)
+   - treść strony (header/main/footer) jest nad tłem (z-index: 1)
+   ========================================================= */
+.theme-home { position: relative; }
+
+.theme-home::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: url("../assets/stars.png") center/cover no-repeat;
+  opacity: 0.8;
+  filter: blur(0.2px) contrast(110%);
+}
+
+/* body.theme-home header,
+body.theme-home main,
+body.theme-home footer{
+  position: relative;
+  z-index: 1;
+} */
+
+/* =========================================================
+   8) GRID DRZWI (PORTALE) NA STRONIE GŁÓWNEJ
+   ========================================================= */
+.doors-grid{
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  gap: 100px;          /* regulujesz tu odległość */
+  margin-top: 30px;
+  align-items: end;
+}
+
+/* =========================================================
+   9) POJEDYNCZE DRZWI (LINK)
+   - "lewitowanie" (brak tła)
+   - hover podbija drzwi i aktywuje glow
+   ========================================================= */
+.door{
+  display:grid;
+  justify-items:center;
+  gap: 12px;
+  padding: 10px 6px 6px;
+  border-radius: 22px;
+  background: transparent;
+  border: 1px solid transparent;
+
+  position: relative;
+  isolation: isolate;
+
+  transition: transform .18s ease, filter .18s ease;
+}
+
+.door img{
+  width: 100%;
+  max-width: 320px;
+  height: clamp(280px, 45vh, 400px);
+  object-fit: contain;
+
+  filter: drop-shadow(0 22px 28px rgba(0,0,0,.55));
+  transform: translateY(0);
+  transition: transform .18s ease, filter .18s ease;
+}
+
+/* lekki lift całego linka */
+.door:hover{
+  transform: translateY(-4px);
+  filter: brightness(1.08);
+}
+
+/* lekki lift samego obrazka */
+.door:hover img{
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* =========================================================
+   10) ŚWIATŁO ZA DRZWIAMI (2 WARSTWY)
+   - ::before = delikatne pulsujące światło (ciągle)
+   - ::after  = mocniejsze światło aktywowane na hover
+   ========================================================= */
+
+/* WARSTWA 1: "oddech" / puls */
+.door::before{
+  content:"";
+  position:absolute;
+  inset: 40px 20px 70px 20px;
+  z-index: -1;
+
+  border-radius: 36px;
+  filter: blur(26px);
+  opacity: 0.75;
+
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+/* Kolor pulsu per drzwi (Emocje / Bogini / Czakry) */
+.door:nth-child(1)::before{
+  background: radial-gradient(circle at 50% 35%,
+    rgba(255, 190, 210, 0.55),
+    rgba(255, 190, 210, 0.18),
+    transparent 68%);
+}
+
+.door:nth-child(2)::before{
+  background: radial-gradient(circle at 50% 35%,
+    rgba(212, 176, 106, 0.55),
+    rgba(212, 176, 106, 0.18),
+    transparent 68%);
+}
+
+.door:nth-child(3)::before{
+  background: radial-gradient(circle at 50% 35%,
+    rgba(110, 231, 255, 0.55),
+    rgba(110, 231, 255, 0.18),
+    transparent 68%);
+}
+
+@keyframes glowPulse{
+  0%,100%{ opacity: .55; transform: scale(1); }
+  50%{ opacity: .85; transform: scale(1.04); }
+}
+
+/* WARSTWA 2: "portal budzi się" (hover) */
+.door::after{
+  content:"";
+  position:absolute;
+  inset: 26px -10px 54px -10px;
+  border-radius: 40px;
+
+  z-index: -1;
+  opacity: 0;
+  filter: blur(60px);
+  transform: scale(1);
+  transition: opacity .22s ease, transform .22s ease, filter .22s ease;
+}
+
+/* Hover: mocniejsze rozświetlenie */
+.door:hover::after{
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Kolor glow na hover per drzwi */
+.door:nth-child(1):hover::after{
+  background: radial-gradient(circle at 50% 35%,
+    rgba(255, 210, 225, 0.55),
+    rgba(255, 210, 225, 0.18),
+    transparent 70%);
+}
+
+.door:nth-child(2):hover::after{
+  background: radial-gradient(circle at 50% 35%,
+    rgba(232, 198, 128, 0.55),
+    rgba(232, 198, 128, 0.18),
+    transparent 70%);
+}
+
+/* Czakry: jaśniej, bo turkus może ginąć na kosmicznym tle */
+.door:nth-child(3):hover::after{
+  background: radial-gradient(circle at 50% 35%,
+    rgba(220, 250, 255, 0.70),
+    rgba(110, 231, 255, 0.22),
+    transparent 70%);
+}
+
+/* =========================================================
+   11) PODPIS POD DRZWIAMI (nazwa portalu + złota kreska)
+   ========================================================= */
+.door-label{
+  text-align:center;
+  position: relative;
+}
+
+.door-label h3{
+  margin: 0;
+  font-size: 21px;
+  letter-spacing: .6px;
+  font-weight: 500;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.door-label h3::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width: 40px;
+  height:1px;
+  background: linear-gradient(to right, transparent, #d4b06a, transparent);
+  transform: translateX(-50%);
+  transition: width .3s ease;
+}
+
+/* na hover kreska się wydłuża */
+.door:hover .door-label h3::after{
+  width: 90px;
+}
+
+/* =========================================================
+   12) UKŁADY DLA PODSTRON / INNYCH SEKCJI
+   - zostawiamy, bo przydadzą się w kolejnych sekcjach
+   ========================================================= */
+.two-col {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.info-card {
+  background: rgba(18, 20, 27, 0.70);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 16px;
+}
+
+.h3 { font-size: 20px; margin: 0 0 10px; }
+
+.steps { color: var(--muted); margin: 0; padding-left: 18px; }
+.steps li { margin: 10px 0; }
+
+.faq details {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: rgba(18, 20, 27, 0.65);
+  margin: 10px 0;
+}
+
+.faq summary { cursor: pointer; color: var(--text); font-weight: 650; }
+.faq p { margin: 10px 0 0; color: var(--muted); }
+
+/* =========================================================
+   13) STOPKA
+   ========================================================= */
+.site-footer { 
+  padding: 0px 0 100px; 
+  background: rgba(12, 14, 22, 0.75);
+  scroll-snap-align: end;  /* albo start */
+
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+
+/* =========================================================
+   14) RESPONSYWNOŚĆ
+   ========================================================= */
+@media (max-width: 860px) {
+  .nav { display: none; }
+  .menu-btn { display: inline-flex; }
+
+  .doors-grid{ grid-template-columns: 1fr; }
+  .door img{ height: 380px; }
+
+  .two-col { grid-template-columns: 1fr; }
+
+  .screen{
+    padding-top: clamp(18px, 5vh, 44px);
+    padding-bottom: clamp(24px, 7vh, 70px);
+  }
+
+  .section.alt .container{
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .nav a{
+    font-size: 12px;
+    letter-spacing: 1px;
+  }    
+}
+
+
+/* =========================================================
+   14) PODSTRONY EMOCJE
+   ========================================================= */
+/* ZAMIANA: jednolite tło + stała mgiełka */
+.theme-emotions-light{
+  --text: #111319;
+  --muted: rgba(17, 19, 25, 0.70);
+  --line: rgba(17, 19, 25, 0.12);
+  --panel: rgba(255,255,255,0.75);
+  --accent: #f1b7c9;
+
+  background: #f7f4f3; /* jednolite */
+  position: relative;
+}
+
+.theme-emotions-light::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* header w jasnym motywie */
+.theme-emotions-light .site-header{
+  background: rgba(247, 244, 243, 0.72);
+  border-bottom: 1px solid var(--line);
+}
+
+.theme-emotions-light .site-footer{
+  background: #e7e1e3;
+  border-top: 1px solid rgba(17,19,25,0.08);
+}
+
+.theme-emotions-light .nav a{
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(21, 21, 21, 0.6);
+}
+
+.theme-emotions-light .nav a:hover {
+  color: #c6a85b; /* złoto */
+}
+
+.theme-emotions-light .menu-btn{ color: var(--text); }
+
+.theme-emotions-light .collection-title::before{
+  content:"";
+  position:absolute;
+  inset: -25% -10%;
+  pointer-events:none;
+  z-index: 0;
+  background:
+    radial-gradient(900px 520px at 18% 30%, rgba(241, 183, 201, 0.40), transparent 60%),
+    radial-gradient(900px 520px at 88% 25%, rgba(181, 225, 255, 0.34), transparent 62%),
+    radial-gradient(700px 420px at 55% 70%, rgba(255,255,255,0.22), transparent 65%);
+  filter: blur(16px);
+  opacity: 1;
+}
+
+.theme-emotions-light .collection-title-emotions::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events:none;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(2px);
+}
+
+
+/* Intro pod tytułem — wyśrodkowana karta */
+.collection-intro .container{
+  display: flex;
+  justify-content: center;
+}
+
+/* Karty produktów – wersja z banerem (4:1) */
+.product-card{
+  padding: 0;                 /* bo obrazek ma “siąść” na górze */
+  overflow: hidden;
+}
+
+.product-cover{
+  aspect-ratio: 4 / 1;
+  width: 100%;
+  overflow: hidden;
+}
+
+.product-cover img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .5s ease;
+}
+
+.product-card:hover .product-cover img{
+  transform: scale(1.12);
+}
+
+.product-body{
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 170px;
+}
+
+.product-short{
+  margin: 0;
+  line-height: 1.55;
+  font-size: 15px;
+  color: rgba(17,19,25,0.70);
+  max-width: 44ch;
+}
+
+.product-title{
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  text-transform: none;     /* klucz */
+  color: rgba(17, 19, 25, 0.92);
+}
+/* żeby cena + kup zawsze siedziały na dole karty */
+.product-body{
+  gap: 10px;            /* lub 12px */
+}
+
+/* Opcjonalnie: delikatny lift na hover */
+.product-card{
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.product-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
+}
+
+.product-btn{
+  padding: 8px 14px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: none;
+
+  border: 1px solid rgba(17,19,25,0.14);
+  background: transparent;
+  color: rgba(17,19,25,0.85);
+
+  transition: all .2s ease;
+}
+
+.product-btn:hover{
+  background: rgba(17,19,25,0.05);
+  border-color: rgba(17,19,25,0.25);
+}
+
+
+/* Intro – premium panel */
+.intro{
+  padding: 34px 0 18px;
+}
+
+.intro-card{
+  width: min(920px, 92%);
+  margin: 0 auto;
+  padding: 22px 26px;
+  border-radius: 22px;
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(17,19,25,0.08);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.06);
+  position: relative;
+}
+
+.intro-lead{
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.9;
+  color: rgba(17,19,25,0.78);
+  text-align: center;
+}
+
+@media (max-width: 700px){
+  .intro-card{ padding: 18px 18px; }
+  .intro-lead{ font-size: 15px; }
+}
+
+
+@media (max-width: 860px) {
+  .nav { display: none; }
+  .menu-btn { display: inline-flex; }
+  .portal-grid { grid-template-columns: 1fr; }
+  .grid.cards { grid-template-columns: 1fr; }
+  .two-col { grid-template-columns: 1fr; }
+  .collection-hero-grid { grid-template-columns: 1fr; }
+}
+
+.grid.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+
+
+.card{
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(17, 19, 25, 0.08);
+  border-radius: 22px;
+  padding: 0;
+  backdrop-filter: blur(6px);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+.price-row{
+  margin-top: 14px;     /* większy dystans od tekstu */
+  justify-content: center; /* centrowanie przycisku */
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  align-items: start;
+}
+.info-card {
+  background: rgba(18, 20, 27, 0.70);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 16px;
+}
+
+.card h3{
+  font-family: "Cormorant Garamond", serif;
+  font-size: 26px;
+  font-weight: 350;
+  margin-bottom: 10px;
+}
+
+/* =========================================================
+   PODSTRONY: KOLEKCJE — tytuł jako osobna sekcja
+   ========================================================= */
+
+/* Sekcja tytułowa (pseudo-grafika) */
+.collection-title{
+  position: relative;
+  padding: 60px 0 40px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.collection-title::before{
+  content:"";
+  position:absolute;
+  inset: -25% -10%;
+  pointer-events:none;
+  z-index: 0;
+  opacity: 1;
+}
+
+/* “płyta” pod tytułem – robi separację sekcji */
+.collection-title::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events:none;
+
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(2px);
+}
+
+/* Treść nad tłem */
+.collection-title .container{
+  position: relative;
+  z-index: 1;
+}
+
+/* Tytuł “okładkowy” */
+.title-wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* centrowanie */
+}
+
+.title-display{
+  margin: 10px 0 8px;
+  font-size: clamp(52px, 7vw, 96px);
+  letter-spacing: 1.2px;
+  line-height: 1.02;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+
+  /* “metal” ale BEZ miękkich przejść, żeby nie rozmywało krawędzi */
+  background: linear-gradient(
+    180deg,
+    #c6a85b 100%,
+    #525457 0%,
+    #b9923f 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* poprawia „ostrość” w niektórych przeglądarkach */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* Sekcja wprowadzająca (zwykły tekst, czytelnie) */
+.collection-intro{
+  padding: 18px 0 14px;
+}
+
+/* wersja lead pod tytułem — bardziej kompaktowa */
+.lead-tight{
+  margin: 0;
+  font-size: 18px;
+  color: rgba(17, 19, 25, 0.72);
+  max-width: 70ch;
+}
+
+/* =========================================================
+   FULLSCREEN SECTIONS (1 sekcja = 1 ekran)
+   ========================================================= */
+
+:root{
+  /* masz już --header-h: 64px; zostaw */
+  --screen-pad-top: clamp(26px, 6vh, 70px);
+  --screen-pad-bot: clamp(34px, 10vh, 110px);
+}
+
+/* Każda pełnoekranowa sekcja */
+.screen{
+  min-height: calc(100svh - var(--header-h));
+  padding-top: var(--screen-pad-top);
+  padding-bottom: var(--screen-pad-bot);
+
+  /* pionowe centrowanie treści, ale nie na siłę */
+  display: flex;
+  align-items: center;
+
+  padding-block: 80px; /* albo ile chcesz */
+  box-sizing: border-box;
+}
+
+/* “Oddech” między sekcjami: tło przebija, ale nie widać kolejnej sekcji,
+   bo każda i tak ma min-height = ekran */
+/* .screen + .screen{
+  margin-top: clamp(24px, 6vh, 90px);
+} */
+
+/* Sekcje ALT: zamiast barwić całą sekcję, zrób panel wewnątrz (czytelniej) */
+.section.alt{
+  background: transparent;        /* tło strony zostaje */
+  border-top: none;
+  border-bottom: none;
+  padding: 0;                      /* padding bierze .screen */
+}
+
+.section.alt .container{
+  background: rgba(12, 14, 22, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  backdrop-filter: blur(6px);
+
+  padding: clamp(18px, 3.5vw, 40px);
+}
+
+/* Usuwamy “sztywne” marginesy FAQ (zastępuje to .screen) */
+#faq{
+  margin: 0;
+}
+
+/* Żeby anchor links (#faq itd.) nie chowały się pod sticky header */
+/* section[id]{
+  scroll-margin-top: calc(var(--header-h) + 12px);
+} */
+
+/* PORTALE: nie wymuszaj pełnego ekranu – wtedy anchor nie „celuje” w za wysoki layout */
+/* #portale.screen{
+  min-height: auto;          /* kluczowe */
+  /* padding-top: calc(var(--header-h) + 4px); 
+  padding-bottom: 18px;
+  align-items: flex-start;
+} */
+
+
+/* Hero: wyśrodkuj tytuł na swoim ekranie (opcjonalnie) */
+.hero.screen{
+  text-align: center;
+}
+
+#portale{
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+/* =========================================================
+   PORTALE – nagłówek + drzwi w jednej sekcji
+   ========================================================= */
+
+.portals{
+  display: flex;
+  align-items: center;
+}
+
+.portals-inner{
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 4vh, 40px);
+  width: 100%;
+}
+
+/* Nagłówek nad drzwiami */
+.portals-heading{
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.portals-title{
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+
+  color: rgba(245,247,255,0.92);
+  text-shadow: 0 18px 50px rgba(0,0,0,.6);
+}
+
+#portale-anchor{
+  scroll-margin-top: calc(var(--header-h) + 12px);
+}
+
+
+/* =========================================================
+   FOOTER –
+   ========================================================= */
+.site-footer{
+  padding: 30px 0 30px;
+  border-top: 1px solid var(--line);
+}
+
+.footer-grid{
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.footer-logo img{
+  height: 46px;
+  width: auto;
+  display: block;
+}
+
+.footer-tagline{
+  margin: 12px 0 10px;
+  max-width: 40ch;
+  line-height: 1.5;
+  font-size: 14px;       /* było domyślne ~16px */
+  opacity: 0.8;         /* lżejsze wizualnie */
+}
+
+.footer-copy{
+  margin: 0;
+  font-size: 13px;
+}
+
+.footer-title{
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.85;
+}
+
+.footer-col{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col a{
+  font-size: 12px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.footer-col a:hover{
+  color: #b59241; /* złoto */
+}
+
+@media (max-width: 860px){
+  .footer-grid{
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+/* =========================================================
+   THEME: GODDESS (Bogini) — TEMPLE / SANDSTONE
+   Piasek, beże, stara świątynia, złote ornamenty.
+   Działa tylko na body.theme-goddess
+   ========================================================= */
+  
+.theme-goddess{
+  --bg: #f3ede3;           /* jasny piasek */
+  --bg-2: #efe3d4;         /* cieplejszy piasek */
+  --stone: #e7dccb;        /* kamień */
+  --text: rgba(28, 22, 16, 0.92);
+  --muted: rgba(28, 22, 16, 0.72);
+  --line: rgba(28, 22, 16, 0.12);
+
+  /* złoto i patyna */
+  --gold: #b58a3b;
+  --gold-soft: #d9bd82;
+  --gold-line: rgba(181,138,59,0.35);
+}
+
+.theme-goddess::after{
+  content:"";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background: url("../assets/tlo_bogini_10.png") center/cover no-repeat;
+  opacity: 0.7;
+  filter: blur(0.2px) contrast(110%);
+}
+
+/* =========================================================
+   Header / nawigacja — jasne, kamienne
+   ========================================================= */
+.theme-goddess .site-header{
+  background: #e7e0d9;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+}
+
+.theme-goddess .nav a{
+  color: rgba(26, 13, 13, 0.984);
+  font-weight: 500;
+}
+
+.theme-goddess .nav a:hover{
+  color: rgba(196, 142, 88, 0.92);
+}
+
+/* =========================================================
+   Sekcja tytułowa: “kamienna płyta” + ornament
+   ========================================================= */
+.theme-goddess .collection-title{
+  position: relative;
+  padding: 74px 0 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Kamienna płyta pod tytułem */
+.theme-goddess .collection-title::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events:none;
+
+  background: rgba(197, 193, 186, 0.28);  /* było 0.4 */
+  border-bottom: 1px solid rgba(28,22,16,0.08);
+}
+
+.theme-goddess .collection-title .container{
+  position: relative;
+  z-index: 1;
+}
+
+/* Złoty, “wyryty” tytuł */
+.theme-goddess .title-display{
+  margin: 10px 0 8px;
+  text-transform: uppercase;
+
+  background:  #b89563fa;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow:
+    0 18px 42px rgba(120, 86, 40, 0.18);
+}
+
+/* =========================================================
+   Intro: pergamin / alabaster
+   ========================================================= */
+.theme-goddess .intro-card{
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(181,138,59,0.18);
+  /* box-shadow: 0 20px 60px rgba(120, 86, 40, 0.10);*/
+  box-shadow: 0 10px 30px rgba(120, 86, 40, 0.12); 
+}
+
+.theme-goddess .intro-lead{
+  color: rgba(28,22,16,0.80);  /* było 0.72 */
+}
+
+/* =========================================================
+   Karty: alabaster + subtelna złota linia
+   ========================================================= */
+.theme-goddess .card{
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(28,22,16,0.10);
+  box-shadow: 0 18px 44px rgba(120, 86, 40, 0.10);
+}
+
+.theme-goddess .card:hover{
+  border-color: rgba(181,138,59,0.28);
+  box-shadow: 0 24px 70px rgba(120, 86, 40, 0.14);
+}
+
+/* Cover: “piaskowy fresk” + winieta */
+.theme-goddess .product-cover{
+  position: relative;
+  filter: saturate(92%) contrast(102%);
+}
+
+.theme-goddess .product-cover::after{
+  content:"";
+  position:absolute;
+  inset: 0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255,255,255,0.35), transparent 55%),
+    linear-gradient(180deg, rgba(0,0,0,0.00), rgba(60,45,25,0.18));
+}
+
+/* Teksty na kartach */
+.theme-goddess .product-title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: 26px;
+  font-weight: 450;
+  letter-spacing: 0.3px;
+  color: rgba(28,22,16,0.92);
+}
+
+.theme-goddess .product-short{
+  color: rgba(28,22,16,0.70);
+}
+
+/* Przycisk: złoty outline, “świątynny” */
+.theme-goddess .product-btn{
+  border: 1px solid rgba(181,138,59,0.42);
+  color: rgba(28,22,16,0.88);
+  background: rgba(181,138,59,0.08);
+}
+
+.theme-goddess .product-btn:hover{
+  background: rgba(181,138,59,0.14);
+  border-color: rgba(139,99,37,0.55);
+  box-shadow: 0 14px 28px rgba(181,138,59,0.16);
+}
+
+/* Nagłówki sekcji */
+.theme-goddess h2{
+  color: rgba(28,22,16,0.92);
+}
+
+/* Footer: kamień */
+.theme-goddess .site-footer{
+  background: #e7e0d9;
+  border-top: 1px solid rgba(28,22,16,0.10);
+}
