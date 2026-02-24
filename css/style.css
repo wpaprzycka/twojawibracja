@@ -251,7 +251,7 @@ h1{
   border: 1px solid var(--line);
   border-radius: 22px;
   backdrop-filter: blur(6px);
-  padding: clamp(18px, 3.5vw, 40px);
+  padding: clamp(28px, 3.5vw, 40px);
 }
 
 /* „Co kryje się…” — rytm tekstu */
@@ -264,6 +264,15 @@ h1{
 }
 #co-kryje-sie .muted:last-child{ margin-bottom: 0; }
 
+#co-kryje-sie.screen{
+  align-items: flex-start;
+  padding-top: calc(var(--screen-pad-top) + 60px);
+  padding-bottom: var(--screen-pad-bot); /* zostaje normalnie */
+}
+
+#co-kryje-sie .container{
+  margin-top: 0;
+}
 /* Footer (wspólny szkielet) */
 .site-footer{
   padding: 30px 0 30px;
@@ -273,8 +282,8 @@ h1{
 
 .footer-grid{
   display: grid;
-  grid-template-columns: 1.2fr 0.9fr 0.9fr;
-  gap: 28px;
+  grid-template-columns: 1.2fr 0.6fr 0.8fr 0.7fr 0.6fr; /* + Gumroad */
+  gap: 16px;
   align-items: start;
 }
 
@@ -314,6 +323,23 @@ h1{
   color: var(--muted);
 }
 .footer-col a:hover{ color: #b59241; }
+
+.insta-link{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.insta-link svg{
+  color:#8b6d77a6;
+  opacity:0.85;
+  transition:.2s ease;
+}
+
+.insta-link:hover svg{
+  opacity:1;
+  transform:scale(1.05);
+}
 
 @media (max-width: 860px){
   .footer-grid{ grid-template-columns: 1fr; gap: 22px; }
