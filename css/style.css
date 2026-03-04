@@ -464,10 +464,49 @@ h1{
   max-width: 44ch;
 }
 
-.price-row{
+/* .price-row{
   margin-top: 14px;
   justify-content: center;
+} */
+.price-row{
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
+
+.product-price{
+  font-size:16px;
+  font-weight:300;
+  letter-spacing:0.3px;
+}
+
+.price-old{
+  text-decoration:line-through;
+  opacity:.5;
+  margin-right:6px;
+  font-size:14px;
+}
+
+.product-discount{
+  position:absolute;
+  top:12px;
+  right:12px;
+
+  padding:6px 12px;
+  border-radius:999px;
+
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+
+  color:white;
+  background:#d14b4b;
+
+  box-shadow:0 6px 18px rgba(0,0,0,0.25);
+}
+
 
 .product-btn{
   padding: 8px 14px;
@@ -732,6 +771,10 @@ h1{
   border-bottom: 1px solid var(--line);
 }
 
+.theme-emotions-light  .nav-promo{
+  color:#d14b4b !important;
+}
+
 .theme-emotions-light .site-footer{
   background: #e7e1e3;
   border-top: 1px solid rgba(17,19,25,0.08);
@@ -847,6 +890,25 @@ h1{
   border-color: rgba(17,19,25,0.25);
 }
 
+.theme-emotions-light .product-discount{
+  position:absolute;
+  top:12px;
+  right:12px;
+
+  padding:6px 12px;
+  border-radius:999px;
+
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.5px;
+
+  color:#f5f5f5dd;
+
+  background:#d54d4a;
+  border:1px solid rgba(0,0,0,0.08);
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
 
 /* =========================================================
    7) THEME: BOGINI (piasek/świątynia)
@@ -906,6 +968,10 @@ h1{
   background: rgb(235, 231, 231);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(6px);
+}
+
+.theme-goddess  .nav-promo{
+  color:#d14b4b !important;
 }
 
 .theme-goddess .nav a{
@@ -1041,6 +1107,14 @@ h1{
   text-shadow: 0 10px 30px rgba(0,0,0,0.10);
 }
 
+.theme-goddess #packages.section h2{
+  text-align: center;
+  margin: 0 0 35px;         /* odstęp od kart */
+  padding-top: 20px;        /* dodatkowy „spokój” w pionie */
+  color: #947e46;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.10);
+}
+
 .theme-goddess #products.section h3{
   font-size: 22px;
 }
@@ -1050,6 +1124,22 @@ h1{
   grid-template-columns: repeat(3, 1fr);
   gap: 27px;
   align-items: stretch;
+}
+
+.theme-goddess .packages-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:27px;
+  justify-items:center;
+}
+
+.packages-grid.cards .product-card:only-child {
+  grid-column: 2;
+}
+
+.theme-goddess .products-info {
+  padding: 0 0 10px;
+  text-align: center;
 }
 
 /* Cards (Bogini) */
