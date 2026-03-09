@@ -1,4 +1,10 @@
-document.getElementById("year").textContent = new Date().getFullYear();
+// document.getElementById("year").textContent = new Date().getFullYear();
+import { productDescriptions } from "./products.js";
+
+const yearEl = document.getElementById("year");
+if (yearEl) {
+  yearEl.textContent = new Date().getFullYear();
+}
 
 const menuBtn = document.getElementById("menuBtn");
 const mobileNav = document.getElementById("mobileNav");
@@ -25,29 +31,6 @@ document.querySelectorAll(".door").forEach((door) => {
 });
 
 
-// Gumroad placeholdery – tu wstawisz prawdziwe linki
-const gumroadLinks = {
-  EMO_UKOJENIE: "https://gumroad.com/l/twoj-produkt-ukoje",
-  EMO_REGULACJA: "https://gumroad.com/l/twoj-produkt-regulacja",
-  EMO_CIALO: "https://gumroad.com/l/twoj-produkt-cialo",
-  // GOD_...: "...",
-  // CHAKRA_...: "...",
-};
-
-document.querySelectorAll("[data-gumroad]").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const key = btn.getAttribute("data-gumroad");
-    const url = gumroadLinks[key];
-
-    if (!url) {
-      alert("Brak linku Gumroad. Uzupełnij gumroadLinks w js/script.js");
-      return;
-    }
-    window.open(url, "_blank", "noopener,noreferrer");
-  });
-});
-
 (function () {
   const setHeaderH = () => {
     const header = document.querySelector(".site-header");
@@ -58,3 +41,65 @@ document.querySelectorAll("[data-gumroad]").forEach((btn) => {
   window.addEventListener("load", setHeaderH);
   window.addEventListener("resize", setHeaderH);
 })();
+
+
+
+const modal = document.getElementById("product-modal");
+const modalTitle = document.getElementById("modal-title");
+const modalDescription = document.getElementById("modal-description");
+const modalBuyLink = document.getElementById("modal-buy-link");
+const modalClose = document.querySelector(".modal-close");
+const modalImage = document.getElementById("modal-image");
+
+const modalContent = document.querySelector(".product-modal-content");
+
+if (modal && modalTitle && modalDescription && modalBuyLink) {
+  document.querySelectorAll("[data-product]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const key = btn.dataset.product;
+      const product = productDescriptions[key];
+
+      if (!product) return;
+
+      modalTitle.textContent = product.title;
+      modalDescription.innerHTML = product.description;
+      modalBuyLink.href = product.buyUrl;
+      modalImage.src = product.image;
+      modalImage.alt = product.title;    
+
+      modal.style.display = "flex";
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      
+      if (modalContent) {
+        modalContent.scrollTop = 0;
+      }       
+    });
+  });
+
+  if (modalClose) {
+    modalClose.addEventListener("click", () => {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    });
+  }
+
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+  });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.style.display === "flex") {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+  });
+}
